@@ -6,11 +6,11 @@ matrix:
   - name: "Bump master"
     env: BRANCH=master
   - name: "Bump Rocky"
-    env: BRANCH="stable/rocky"
+    env: BRANCH="rocky"
   - name: "Bump queens"
-    env: BRANCH="stable/queens"
+    env: BRANCH="queens"
   - name: "Bump pike"
-    env: BRANCH="stable/pike"
+    env: BRANCH="pike"
 before_script:
 - openssl aes-256-cbc -K $encrypted_83630750896a_key -iv $encrypted_83630750896a_iv
   -in travis_gerrit_key.enc -out /tmp/travis_gerrit_key -d && chmod 600 /tmp/travis_gerrit_key

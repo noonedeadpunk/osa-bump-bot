@@ -5,7 +5,12 @@ set -o xtrace
 
 osa_url="https://github.com/openstack/openstack-ansible.git"
 
-# Copy gitconfig
+# Backup gitconfig if it exists already
+if [[ -f ~/.gitconfig ]]; then
+    cp ~/.gitconfig ~/.gitconfig.old
+fi
+
+# Override gitconfig
 cat > ~/.gitconfig << EOF
 [gitreview]
         username = evrardjp
@@ -14,22 +19,25 @@ cat > ~/.gitconfig << EOF
         email = jean-philippe@evrard.me
 EOF
 
-BRANCH="$1"
+branch="$1"
+if [[ "$branch" != "master" ]]; then
+    gitbranchname="stable/${branch}"
+fi
 
-git clone $osa_url "osa-$BRANCH"
-echo "Bump SHAs for $BRANCH" > "commitmsg-$BRANCH"
-pushd "osa-$BRANCH"
-    git checkout "$BRANCH"
+git clone $osa_url "osa-$branch"
+echo "Bump SHAs for $gitbranchname" > "commitmsg-$branch"
+pushd "osa-$branch"
+    git checkout "$gitbranchname"
     git pull
     git checkout -b bump_osa_requirements
     osa releases bump_upstream_shas
-    if [[ "$BRANCH" != "master" ]]; then
+    if [[ "$branch" != "master" ]]; then
         osa releases bump_roles
     fi
     git status
     git diff
     git add .
-    git commit -F "../commitmsg-$BRANCH"
+    git commit -F "../commitmsg-$branch"
     osa releases check_pins
     #TODO
     #git review -f -t bump_osa
