@@ -20,7 +20,9 @@ cat > ~/.gitconfig << EOF
 EOF
 
 branch="$1"
-if [[ "$branch" != "master" ]]; then
+if [[ "$branch" == "master" ]]; then
+    gitbranchname="master"
+else
     gitbranchname="stable/${branch}"
 fi
 
@@ -31,8 +33,11 @@ pushd "osa-$branch"
     git pull
     git checkout -b bump_osa_requirements
     osa releases bump_upstream_shas
+    #TODO(evrardjp): Remove this conditional and update the fonction
+    #update_ansible_role_requirements_file to track, for external roles,
+    #not only master.
     if [[ "$branch" != "master" ]]; then
-        osa releases bump_roles
+        osa releases bump_roles "$gitbranchname"
     fi
     git status
     git diff
