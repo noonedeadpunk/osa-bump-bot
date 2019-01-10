@@ -1,0 +1,10 @@
+language: python
+python:
+  - "3.6"
+matrix:
+  - env: BRANCH=master
+  - env: BRANCH=stable/rocky
+  - env: BRANCH=stable/queens
+  - env: BRANCH=stable/pike
+script:
+  - "./bump.sh"
