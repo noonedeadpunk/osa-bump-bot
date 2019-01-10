@@ -14,11 +14,6 @@ cat > ~/.gitconfig << EOF
         email = jean-philippe@evrard.me
 EOF
 
-# Get SSH-key and add it to agent
-# TODO
-ssh-keygen -f ~/.ssh/gerrit-travis -N ""
-ssh-add  ~/.ssh/gerrit-travis
-
 git clone $osa_url "osa-$BRANCH"
 echo "Bump SHAs for $BRANCH" > "commitmsg-$BRANCH"
 pushd "osa-$BRANCH"
