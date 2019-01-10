@@ -14,13 +14,15 @@ cat > ~/.gitconfig << EOF
         email = jean-philippe@evrard.me
 EOF
 
+BRANCH="$1"
+
 git clone $osa_url "osa-$BRANCH"
 echo "Bump SHAs for $BRANCH" > "commitmsg-$BRANCH"
 pushd "osa-$BRANCH"
     git checkout "$BRANCH"
     git pull
     git checkout -b bump_osa_requirements
-    osa releases bump_upstream_repos_shas
+    osa releases bump_upstream_shas
     if [[ "$BRANCH" != "master" ]]; then
         osa releases bump_roles
     fi
@@ -28,6 +30,7 @@ pushd "osa-$BRANCH"
     git diff
     git add .
     git commit -F "../commitmsg-$BRANCH"
+    osa releases check_pins
     #TODO
     #git review -f -t bump_osa
 popd
