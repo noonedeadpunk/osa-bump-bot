@@ -48,12 +48,7 @@ pushd "osa-$branch"
     git pull
     git checkout -b bump_osa_requirements
     osa releases bump_upstream_shas
-    #TODO(evrardjp): Remove this conditional and update the fonction
-    #update_ansible_role_requirements_file to track, for external roles,
-    #not only master.
-    if [[ "$branch" != "master" ]]; then
-        osa releases bump_roles "$gitbranchname"
-    fi
+    osa releases bump_roles "$gitbranchname"
     git status
     git diff
     git add .
