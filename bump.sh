@@ -56,7 +56,8 @@ pushd "osa-$branch"
     osa releases check_pins
     if [[ $(( $(date +'%V') % 2)) -eq 0 ]]; then
         echo "Even week number, bumping!"
-        git review -f -t bump_osa
+        #Do not send git-review until roles are branched.
+        #git review -f -t bump_osa
     else
         echo "Odd week number, I am only displaying this for a status update"
     fi
