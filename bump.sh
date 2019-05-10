@@ -42,7 +42,14 @@ else
 fi
 
 git clone $osa_url "osa-$branch"
-echo "Bump SHAs for $gitbranchname" > "commitmsg-$branch"
+if [[ "$branch" == "stein" ]]; then
+    # Stein is not ready yet. It needs https://review.opendev.org/#/c/656595/ in first.
+    preamble="[DNM] "
+else
+    preamble=""
+fi
+
+echo "${preamble}Bump SHAs for $gitbranchname" > "commitmsg-$branch"
 pushd "osa-$branch"
     git checkout "$gitbranchname"
     git pull
@@ -54,11 +61,12 @@ pushd "osa-$branch"
     git add .
     git commit -F "../commitmsg-$branch"
     osa releases check_pins
+    # Bumping only every second Monday
     if [[ $(( $(date +'%V') % 2)) -eq 0 ]]; then
         echo "Even week number, bumping!"
-        #Do not send git-review until roles are branched.
-        #git review -f -t bump_osa
-    else
-        echo "Odd week number, I am only displaying this for a status update"
+        if [[ $(( $(date +'%w') % 7)) -eq 0 ]]; then
+            # Sundays! Bumping enabled!
+            git review -f -t bump_osa
+        fi
     fi
 popd
