@@ -9,7 +9,7 @@ osa_url="https://github.com/openstack/openstack-ansible.git"
 # Known public key
 gerrit_pubkey="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCfsIj/jqpI+2CFdjCL6kOiqdORWvxQ2sQbCzSzzmLXic8yVhCCbwarkvEpfUOHG4eyB0vqVZfMffxf0Yy3qjURrsroBCiuJ8GdiAcGdfYwHNfBI0cR6kydBZL537YDasIk0Z3ILzhwf7474LmkVzS7V2tMTb4ZiBS/jUeiHsVp88FZhIBkyhlb/awAGcUxT5U4QBXCAmerYXeB47FPuz9JFOVyF08LzH9JRe9tfXtqaCNhlSdRe/2pPRvn2EIhn5uHWwATACG9MBdrK8xv8LqPOik2w1JkgLWyBj11vDd5I3IjrmREGw8dqImqp0r6MD8rxqADlc1elfDIXYsy+TVH"
 # Found public key (for comparison purposes, avoiding mitm)
-gerrit_scan=$(ssh-keyscan -p 29418 review.openstack.org 2>/dev/null)
+gerrit_scan=$(ssh-keyscan -p 29418 review.opendev.org 2>/dev/null)
 gerrit_found_pubkey=$(echo ${gerrit_scan} | cut -d ' ' -f '2,3')
 
 if [[ ${gerrit_pubkey} != ${gerrit_found_pubkey} ]]; then
