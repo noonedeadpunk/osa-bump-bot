@@ -42,14 +42,8 @@ else
 fi
 
 git clone $osa_url "osa-$branch"
-if [[ "$branch" == "stein" ]]; then
-    # Stein is not ready yet. It needs https://review.opendev.org/#/c/656595/ in first.
-    preamble="[DNM] "
-else
-    preamble=""
-fi
 
-echo "${preamble}Bump SHAs for $gitbranchname" > "commitmsg-$branch"
+echo "Bump SHAs for $gitbranchname" > "commitmsg-$branch"
 pushd "osa-$branch"
     git checkout "$gitbranchname"
     git pull
