@@ -28,10 +28,10 @@ fi
 # Override gitconfig
 cat > ~/.gitconfig << EOF
 [gitreview]
-        username = evrardjp
+        username = noonedeadpunk
 [user]
-        name = Jean-Philippe Evrard
-        email = jean-philippe@evrard.me
+        name = Dmitriy Rabotyagov
+        email = noonedeadpunk@ya.ru
 EOF
 
 branch="$1"
