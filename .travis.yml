@@ -6,6 +6,8 @@ matrix:
   include:
   - name: "Bump master"
     env: BRANCH=master
+  - name: "Bump victoria"
+    env: BRANCH=victoria
   - name: "Bump ussuri"
     env: BRANCH=ussuri
   - name: "Bump train"
